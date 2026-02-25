@@ -8,7 +8,7 @@
 
 | Nombre | GitHub |
 |---|---|
-| Juan Jose | — |
+| Juan Jose Ortiz | — |
 | Esteban Rubiano | [@Estebandev-ved](https://github.com/Estebandev-ved) |
 | Kevin Vélez Betancur | [@Kewinv](https://github.com/Kewinv) |
 | Keiner Jhoseth Vega Rangel | — |
