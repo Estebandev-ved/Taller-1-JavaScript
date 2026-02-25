@@ -11,7 +11,7 @@
 | Juan Jose Ortiz | — |
 | Esteban Rubiano | [@Estebandev-ved](https://github.com/Estebandev-ved) |
 | Kevin Vélez Betancur | [@Kewinv](https://github.com/Kewinv) |
-| Keiner Jhoseth Vega Rangel | — |
+| Keiner Jhoseth Vega Rangel | [@Laxaruz](https://github.com/Laxaruz) |
 
 ---
 
