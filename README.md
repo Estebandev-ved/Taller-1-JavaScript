@@ -10,20 +10,20 @@
 |---|---|
 | Juan Jose | — |
 | Esteban Rubiano | [@Estebandev-ved](https://github.com/Estebandev-ved) |
-| Kevin Vélez | [@Kewinv](https://github.com/Kewinv) |
-| Jhoseth | — |
+| Kevin Vélez Betancur | [@Kewinv](https://github.com/Kewinv) |
+| Keiner Jhoseth Vega Rangel | — |
 
 ---
 
 ## 📋 Distribución del Trabajo
 
-| Punto | Descripción
+| Punto | Descripción|Autor
 |---|---|---|
-| **Punto 1** — Variables, Tipos de Datos y Coerción | Parte A: Tipos de datos y typeof / Parte B: Coerción implícita y explícita 
-| **Punto 2** — Estructuras de Control | Parte A: Sistema de calificaciones / Parte B: Generador de tablas de multiplicar
-| **Punto 3** — Arrays y sus Métodos | Parte A: Creación y manipulación básica / Parte B: Métodos funcionales (map, filter, reduce...)
-| **Punto 4** — Objetos en JavaScript | Parte A: Definición y manipulación de objetos / Parte B: Prototipos y Object Methods 
-| **Bonus** — Integración general | Sistema integrado con productos y curso de capacitación 
+| **Punto 1** — Variables, Tipos de Datos y Coerción | Parte A: Tipos de datos y typeof / Parte B: Coerción implícita y explícita |Kevin
+| **Punto 2** — Estructuras de Control | Parte A: Sistema de calificaciones / Parte B: Generador de tablas de multiplicar|Jhoseth
+| **Punto 3** — Arrays y sus Métodos | Parte A: Creación y manipulación básica / Parte B: Métodos funcionales (map, filter, reduce...)|Esteban 
+| **Punto 4** — Objetos en JavaScript | Parte A: Definición y manipulación de objetos / Parte B: Prototipos y Object Methods |Juan jose
+| **Bonus** — Integración general | Sistema integrado con productos y curso de capacitación | Todos aportamos
 
 ---
 
