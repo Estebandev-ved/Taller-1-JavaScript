@@ -23,7 +23,7 @@
 | **Punto 2** — Estructuras de Control | Parte A: Sistema de calificaciones / Parte B: Generador de tablas de multiplicar|Jhoseth
 | **Punto 3** — Arrays y sus Métodos | Parte A: Creación y manipulación básica / Parte B: Métodos funcionales (map, filter, reduce...)|Esteban 
 | **Punto 4** — Objetos en JavaScript | Parte A: Definición y manipulación de objetos / Parte B: Prototipos y Object Methods |Juan jose
-| **Bonus** — Integración general | Sistema integrado con productos y curso de capacitación | Todos aportamos
+| **Bonus** — Integración general | Sistema integrado con productos y curso de capacitación | ------------
 
 ---
 
