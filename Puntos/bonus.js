@@ -1,135 +1,169 @@
-// Punto bonus - integracion de todos los temas del taller
-// usamos los productos del punto 3 y la funcion constructora del punto 4
+// ============================================================
+// BONUS — Integración: Tienda Tech + Curso de Capacitación
+// Taller de JavaScript — Construcción de Software III
+// ============================================================
+{
 
-console.log("========================================");
-console.log("\nPUNTO BONUS: INTEGRACIÓN DE TEMAS\n");
+// ------------------------------------------------------------------
+// Reutilizamos el inventario del Punto 3 y la entidad Curso del Punto 4
+// ------------------------------------------------------------------
 
-
-// productos de la tienda (mismo array del punto 3)
-let productosBonus = [
-    { nombre: "Laptop HP 15", precio: 1500000, categoria: "computadores", stock: 10, disponible: true },
-    { nombre: "Samsung Galaxy S23", precio: 3200000, categoria: "celulares", stock: 10, disponible: true },
-    { nombre: "Teclado mecanico", precio: 450000, categoria: "accesorios", stock: 10, disponible: true },
-    { nombre: "Audifonos inalambricos", precio: 250000, categoria: "accesorios", stock: 10, disponible: true },
-    { nombre: "Laptop Lenovo", precio: 1500000, categoria: "computadores", stock: 10, disponible: true },
-    { nombre: "Pc gamer", precio: 2500000, categoria: "computadores", stock: 10, disponible: true },
-    { nombre: "Tablet", precio: 800000, categoria: "celulares", stock: 10, disponible: true },
-    { nombre: "Iphone 15", precio: 4500000, categoria: "celulares", stock: 10, disponible: true },
-    { nombre: "Xiaomi redmi note 10", precio: 950000, categoria: "celulares", stock: 10, disponible: true },
-    { nombre: "Reloj smart", precio: 600000, categoria: "accesorios", stock: 0, disponible: false },
+const inventario = [
+    { nombre: "MacBook Pro 14",        precio: 8500000, categoria: "computadores", stock: 5 },
+    { nombre: "iPhone 15 Pro",         precio: 4200000, categoria: "celulares",    stock: 12 },
+    { nombre: "Dell XPS 15",           precio: 6200000, categoria: "computadores", stock: 3 },
+    { nombre: "AirPods Pro",           precio: 980000,  categoria: "accesorios",   stock: 20 },
+    { nombre: "iPad Air M2",           precio: 2900000, categoria: "celulares",    stock: 4 },
+    { nombre: "Logitech MX Master 3",  precio: 520000,  categoria: "accesorios",   stock: 7 },
 ];
 
-// funcion constructora del curso (punto 4)
-// recibe nombre del curso, codigo y creditos
-function CursoBonus(nombre, codigo, creditos) {
+// ------------------------------------------------------------------
+// Constructor ClienteCapacitacion
+// Modela un cliente que asiste al curso de ventas de la tienda
+// ------------------------------------------------------------------
+
+function ClienteCapacitacion(nombre, apellido, evaluaciones) {
     this.nombre = nombre;
-    this.codigo = codigo;
-    this.creditos = creditos;
-    this.inscritos = []; // aqui guardamos los clientes inscritos
+    this.apellido = apellido;
+    // evaluaciones: array de { tema, calificacion }
+    this.evaluaciones = evaluaciones;
 }
 
-// inscribe un cliente al array de inscritos
-CursoBonus.prototype.inscribirCliente = function (cliente) {
+ClienteCapacitacion.prototype.obtenerNombreCompleto = function () {
+    return `${this.nombre} ${this.apellido}`;
+};
+
+ClienteCapacitacion.prototype.calcularPromedio = function () {
+    const suma = this.evaluaciones.reduce((acc, e) => acc + e.calificacion, 0);
+    return parseFloat((suma / this.evaluaciones.length).toFixed(2));
+};
+
+ClienteCapacitacion.prototype.estaAprobado = function () {
+    return this.calcularPromedio() >= 3.5;
+};
+
+// ------------------------------------------------------------------
+// Constructor CursoCapacitacion (como en Punto 4)
+// ------------------------------------------------------------------
+
+function CursoCapacitacion(nombre, codigo) {
+    this.nombre = nombre;
+    this.codigo = codigo;
+    this.inscritos = [];
+}
+
+CursoCapacitacion.prototype.inscribir = function (cliente) {
     this.inscritos.push(cliente);
 };
 
-// retorna solo los nombres de los inscritos
-CursoBonus.prototype.obtenerListado = function () {
-    return this.inscritos.map(function (c) {
-        return c.nombre;
-    });
+CursoCapacitacion.prototype.aprobados = function () {
+    return this.inscritos.filter(c => c.estaAprobado());
 };
 
-// filtra los que aprobaron con nota mayor o igual a 3.5
-CursoBonus.prototype.clientesAprobados = function () {
-    return this.inscritos.filter(function (c) {
-        return c.nota >= 3.5;
-    });
+CursoCapacitacion.prototype.reprobados = function () {
+    return this.inscritos.filter(c => !c.estaAprobado());
 };
 
-// calcula el promedio de notas de todos los inscritos
-CursoBonus.prototype.calcularPromedioGrupo = function () {
-    let suma = 0;
-    for (let i = 0; i < this.inscritos.length; i++) {
-        suma += this.inscritos[i].nota;
-    }
-    return suma / this.inscritos.length;
+CursoCapacitacion.prototype.promedioGrupo = function () {
+    const suma = this.inscritos.reduce((acc, c) => acc + c.calcularPromedio(), 0);
+    return parseFloat((suma / this.inscritos.length).toFixed(2));
 };
 
-// encuentra el cliente con la nota mas alta
-CursoBonus.prototype.clienteDestacado = function () {
-    let mejor = this.inscritos[0];
-    for (let i = 1; i < this.inscritos.length; i++) {
-        if (this.inscritos[i].nota > mejor.nota) {
-            mejor = this.inscritos[i];
-        }
-    }
-    return mejor;
+CursoCapacitacion.prototype.mejorEstudiante = function () {
+    return this.inscritos.reduce((mejor, actual) =>
+        actual.calcularPromedio() > mejor.calcularPromedio() ? actual : mejor
+    );
 };
 
-// clientes que se van a inscribir al curso de capacitacion
-// cada uno tiene nombre, nota de la evaluacion y el producto que mas le intereso
-const clientesBonus = [
-    { nombre: "Juan Jose", nota: 4.5, productoFavorito: "Laptop HP 15" },
-    { nombre: "Maria Lopez", nota: 3.2, productoFavorito: "Samsung Galaxy S23" },
-    { nombre: "Carlos Meza", nota: 3.8, productoFavorito: "Pc gamer" },
-    { nombre: "Laura Gomez", nota: 2.9, productoFavorito: "Audifonos inalambricos" },
-    { nombre: "Pedro Suarez", nota: 4.0, productoFavorito: "Iphone 15" },
-    { nombre: "Sofia Rios", nota: 3.5, productoFavorito: "Tablet" },
-    { nombre: "Andres Diaz", nota: 1.8, productoFavorito: "Teclado mecanico" },
-    { nombre: "Valentina Cruz", nota: 4.8, productoFavorito: "Laptop Lenovo" },
+// ------------------------------------------------------------------
+// Creación de clientes y curso
+// ------------------------------------------------------------------
+
+const clientes = [
+    new ClienteCapacitacion("Andrés", "Cárdenas", [
+        { tema: "Tipos de productos",    calificacion: 4.5 },
+        { tema: "Atención al cliente",   calificacion: 4.2 },
+        { tema: "Proceso de venta",      calificacion: 3.9 },
+    ]),
+    new ClienteCapacitacion("Lucía", "Bermúdez", [
+        { tema: "Tipos de productos",    calificacion: 3.2 },
+        { tema: "Atención al cliente",   calificacion: 3.0 },
+        { tema: "Proceso de venta",      calificacion: 2.8 },
+    ]),
+    new ClienteCapacitacion("Tomás", "Restrepo", [
+        { tema: "Tipos de productos",    calificacion: 4.9 },
+        { tema: "Atención al cliente",   calificacion: 4.7 },
+        { tema: "Proceso de venta",      calificacion: 5.0 },
+    ]),
+    new ClienteCapacitacion("Sofía", "Vargas", [
+        { tema: "Tipos de productos",    calificacion: 3.6 },
+        { tema: "Atención al cliente",   calificacion: 3.8 },
+        { tema: "Proceso de venta",      calificacion: 3.5 },
+    ]),
+    new ClienteCapacitacion("Martín", "Gutiérrez", [
+        { tema: "Tipos de productos",    calificacion: 2.5 },
+        { tema: "Atención al cliente",   calificacion: 3.0 },
+        { tema: "Proceso de venta",      calificacion: 2.0 },
+    ]),
 ];
 
-// creamos el curso de capacitacion
-const cursoBonus = new CursoBonus("Capacitacion Tienda Tech", "CAP-101", 2);
+const curso = new CursoCapacitacion("Ventas de Tecnología Premium", "VTP-001");
+clientes.forEach(c => curso.inscribir(c));
 
-// inscribimos a todos los clientes con un ciclo for
-for (let i = 0; i < clientesBonus.length; i++) {
-    cursoBonus.inscribirCliente(clientesBonus[i]);
-}
+// ------------------------------------------------------------------
+// Análisis del inventario con métodos de array (Punto 3)
+// ------------------------------------------------------------------
 
-// precio promedio del inventario usando reduce
-const precioPromedioBonus = productosBonus.reduce(function (acc, p) {
-    return acc + p.precio;
-}, 0) / productosBonus.length;
+const productosDestacados = inventario
+    .filter(p => p.precio > 3000000)                  // solo los premium
+    .sort((a, b) => b.precio - a.precio)               // de mayor a menor precio
+    .map(p => `${p.nombre} ($${p.precio.toLocaleString("es-CO")})`);
 
-// productos que estan disponibles
-const disponiblesBonus = productosBonus.filter(function (p) {
-    return p.disponible;
-});
+const valorInventarioPremium = inventario
+    .filter(p => p.precio > 3000000)
+    .reduce((acc, p) => acc + p.precio * p.stock, 0);
 
-// resultados del curso
-const aprobadosBonus = cursoBonus.clientesAprobados();
-const reprobadosBonus = cursoBonus.inscritos.filter(function (c) {
-    return c.nota < 3.5;
-});
-const promedioBonus = cursoBonus.calcularPromedioGrupo();
-const destacadoBonus = cursoBonus.clienteDestacado();
+// ------------------------------------------------------------------
+// Reporte final con template literals
+// ------------------------------------------------------------------
 
-// reporte final con template literals
-const reporteBonus = `
-=== REPORTE FINAL - ${cursoBonus.nombre} | Codigo: ${cursoBonus.codigo} ===
+const listaAprobados = curso.aprobados();
+const listaReprobados = curso.reprobados();
+const mejor = curso.mejorEstudiante();
 
-Inventario de la tienda:
-  Total productos: ${productosBonus.length}
-  Disponibles: ${disponiblesBonus.length}
-  Precio promedio: $${precioPromedioBonus.toLocaleString("es-CO")}
+const reporte = `
+${"=".repeat(65)}
+   REPORTE FINAL — TIENDA TECH COLOMBIA
+   Curso: ${curso.nombre} (${curso.codigo})
+${"=".repeat(65)}
 
-Resultados del curso:
-  Inscritos: ${cursoBonus.inscritos.length}
-  Promedio del grupo: ${promedioBonus.toFixed(2)}
+ INVENTARIO PREMIUM (precio > $3.000.000):
+${productosDestacados.map(p => `   • ${p}`).join("\n")}
+   Valor total en inventario premium: $${valorInventarioPremium.toLocaleString("es-CO")}
 
-Aprobados (nota >= 3.5): ${aprobadosBonus.length}
-${aprobadosBonus.map(function (c) {
-    return `  ${c.nombre} - Nota: ${c.nota} - Le intereso: ${c.productoFavorito}`;
-}).join("\n")}
+ RESULTADOS DEL CURSO (${curso.inscritos.length} participantes):
+${"─".repeat(55)}
+${ curso.inscritos
+    .map(c => `   ${c.obtenerNombreCompleto().padEnd(25)} Promedio: ${c.calcularPromedio().toFixed(2)}   ${c.estaAprobado() ? "APROBADO" : "REPROBADO"}`)
+    .join("\n") }
 
-Reprobados: ${reprobadosBonus.length}
-${reprobadosBonus.map(function (c) {
-    return `  ${c.nombre} - Nota: ${c.nota}`;
-}).join("\n")}
+ ESTADÍSTICAS GENERALES:
+   Promedio del grupo : ${curso.promedioGrupo()}
+   Aprobados          : ${listaAprobados.length} / ${curso.inscritos.length}
+   Reprobados         : ${listaReprobados.length} / ${curso.inscritos.length}
+   Mejor participante : ${mejor.obtenerNombreCompleto()} (${mejor.calcularPromedio().toFixed(2)})
 
-Cliente destacado: ${destacadoBonus.nombre} con nota ${destacadoBonus.nota}
+ APROBADOS — Habilitados para vender:
+${listaAprobados.map(c => `   ✓ ${c.obtenerNombreCompleto()}`).join("\n")}
+
+ REPROBADOS — Requieren refuerzo:
+${listaReprobados.map(c => `   ✗ ${c.obtenerNombreCompleto()}`).join("\n")}
+
+${"=".repeat(65)}
+ Generado automáticamente por el sistema de capacitación.
+${"=".repeat(65)}
 `;
 
-console.log(reporteBonus);
+console.log(reporte);
+
+}
